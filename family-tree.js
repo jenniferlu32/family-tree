@@ -33,18 +33,28 @@ class FamilyTree {
     }
   }
 
-  log() {
-    let generation = 1;
-    let branch = "--";
-    if (this.familyLog.length === 0) {
-      this.familyLog.push(`${branch.repeat(generation)} ${this.value}`);
-    } else {
-      generation++;
-      this.familyLog.push(`\n${branch.repeat(generation)} ${this.value}`);
+  log(root = this, level = "--") {
+    let solution = `${level} ${root.value}\n`;
+    if (root.children.length) {
+      root.children.forEach((child) => {
+        solution += this.log(child, level + "--");
+      });
     }
-    return this.familyLog;
+    return solution;
+    // let generation = 1;
+    // let branch = "--";
+
+    // if (this.familyLog.length === 0) {
+    //   this.familyLog.push(`${branch.repeat(generation)} ${this.value}`);
+    // }
+    // if (this.children) {
+    //   generation++;
+    //   this.familyLog.push(
+    //     `\n${branch.repeat(generation)} ${this.children[generation]}`
+    //   );
+    // }
+    // return this.familyLog;
   }
 }
 
 module.exports = FamilyTree;
-//hello world!
